@@ -17,17 +17,20 @@ const dbconnection = mysql2.createPool({
 
 //to check mysql connection to the server
 
-dbconnection.getConnection((err, result) => {
-  if (err) {
-    console.log(err.message);
-  } else {
-    console.log(result);
-  }
-});
+// dbconnection.getConnection((err, result) => {
+//   if (err) {
+//     console.log(err.message);
+//   } else {
+//     console.log(result);
+//   }
+// });
 
-app.get("/", (req, res) => {
-  res.status(200).send("Evangadi Forum is running");
-});
+// app.get("/", (req, res) => {
+//   res.status(200).send("Evangadi Forum is running");
+// });
+
+module.exports = dbconnection.promise();
+
 
 //table created
 app.get("/tables", (req, res) => {
