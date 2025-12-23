@@ -3,10 +3,8 @@ const mysql2 = require("mysql2");
 const express = require("express");
 const cors = require("cors");
 
-const App = express();
-App.use(cors());
-
-App.use(express.urlencoded({ extended: true }));
+const app = express();
+app.use(cors());
 
 const dbconnection = mysql2.createPool({
   user: process.env.DB_USER,
@@ -19,19 +17,20 @@ const dbconnection = mysql2.createPool({
 
 //to check mysql connection to the server
 
-// dbconnection.getConnection((err, result) => {
-//   if (err) {
-//     console.log(err.message);
-//   } else {
-//     console.log(result);
-//   }
-// });
+dbconnection.getConnection((err, result) => {
+  if (err) {
+    console.log(err.message);
+  } else {
+    console.log(result);
+  }
+});
 
-// App.get("/", (req, res) => {
-//   res.status(200).send("Evangadi Forum API is running");
-// });
+app.get("/", (req, res) => {
+  res.status(200).send("Evangadi Forum is running");
+});
 
-App.get("/tables", (req, res) => {
+//table created
+app.get("/tables", (req, res) => {
   const users = `CREATE TABLE if not exists users_Table(
     userid INT(20) NOT NULL AUTO_INCREMENT,
     username VARCHAR(20) NOT NULL,
@@ -73,7 +72,7 @@ App.get("/tables", (req, res) => {
   res.send("Table created");
 });
 
-App.listen(5500, (err) => {
+app.listen(5500, (err) => {
   if (err) {
     console.log(err);
   } else {
