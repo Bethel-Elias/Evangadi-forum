@@ -1,10 +1,19 @@
 import { Route, Routes, useNavigate } from "react-router-dom";
+import { useEffect, useState, createContext } from "react";
+import axios from "./axiosconfig";
+
 import "./App.css";
+
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
-import { useEffect, useState, createContext } from "react";
-import axios from "./axiosconfig";
+import Navbar from './components/Navbar/Navbar'
+import AskQuestion from "./pages/AskQuestion/AskQuestion";
+import QuestionDetails from "./pages/QuestionDetails/QuestionDetails";
+import HowItWorks from "./pages/HowItWorks/HowItWorks";
+import Footer from "./components/Footer/Footer";
+import ProtectedRoute from "./components/ProtectedRoute.jsx/ProtectedRoute";
+
 
 export const AppState = createContext();
 
@@ -37,12 +46,38 @@ function App() {
   }, []);
 
   return (
-    <AppState.Provider value={{ user, setuser }}>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-      </Routes>
+    <AppState.Provider value={{ user, setuser }} >
+      <Navbar />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route
+            path="/ask"
+            element={
+              <ProtectedRoute>
+                <AskQuestion />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/questions/:id"
+            element={
+              <ProtectedRoute>
+                <QuestionDetails />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/how-it-works" element={<HowItWorks />} />
+        </Routes>
+      <Footer />
     </AppState.Provider>
   );
 }
