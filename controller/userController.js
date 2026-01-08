@@ -82,7 +82,7 @@ async function login(req, res) {
         expiresIn: "1d",
       });
 
-      return res.status(StatusCodes.OK).json({ msg: "User login successful", token });
+      return res.status(StatusCodes.OK).json({ msg: "User login successful", token , username});
 
     
     

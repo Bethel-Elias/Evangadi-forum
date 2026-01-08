@@ -6,9 +6,9 @@ const { postAnswer, getAnswers} = require("../controller/answerController");
 const authMiddleware = require("../middleware/authMiddleware");
 
 // Post an answer (protected)
-router.post("/add", authMiddleware, postAnswer);
+router.post("/answers", authMiddleware, postAnswer);
 
 // Get answers for a question
-router.get("/:questionId", getAnswers);
+router.get("/answers/:questionId", getAnswers);
 
 module.exports = router;

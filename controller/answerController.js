@@ -1,6 +1,6 @@
 const { StatusCodes } = require("http-status-codes");
 const dbconnection = require("../db/dbconfig");
-// const { v4: uuidv4 } = require("uuid");
+
 
 //post/add answers
 async function postAnswer(req, res) {
@@ -20,10 +20,31 @@ async function postAnswer(req, res) {
   }
 
   try {
-    await dbconnection.query(
+    const [result] = await dbconnection.query(
       "INSERT INTO answers_table (questionid, userid, answer) VALUES (?,?,?)",
       [questionid, userid, answer]
     );
+
+
+    const [newAnswer] = await dbconnection.query(
+      `SELECT 
+     a.answerid,
+     a.answer,
+     a.created_at,
+     u.username
+   FROM answers_table a
+   JOIN users_Table u ON a.userid = u.userid
+   WHERE a.answerid = ?`,
+      [result.insertId]
+    );
+
+    res.status(201).json({ answer: newAnswer[0] });
+
+
+
+
+
+
 
     res.status(StatusCodes.CREATED).json({ msg: "Answer posted successfully" });
   } catch (error) {
@@ -53,7 +74,7 @@ async function getAnswers(req, res) {
        FROM answers_table a
        JOIN users_table u ON a.userid = u.userid
        WHERE a.questionid = ?
-       ORDER BY a.created_at DESC`,
+       ORDER BY a.created_at ASC`,
       [questionId]
     );
 
