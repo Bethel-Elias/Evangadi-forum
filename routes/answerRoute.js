@@ -11,4 +11,6 @@ router.post("/answers", authMiddleware, postAnswer);
 // Get answers for a question
 router.get("/answers/:questionId", getAnswers);
 
+
+
 module.exports = router;

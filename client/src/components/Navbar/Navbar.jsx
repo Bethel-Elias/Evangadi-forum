@@ -1,38 +1,32 @@
-import React, {useEffect,useState}from "react";
+import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "../../axiosconfig";
 import "./navbar.css";
+import { AppState } from "../../App";
 
 function Navbar() {
   const navigate = useNavigate();
-  const [token, setToken] = useState(localStorage.getItem("token"));
+
+  const { user, setuser, setToken } = useContext(AppState);
 
   const logout = () => {
     localStorage.removeItem("token"); // ✅ remove token
     delete axios.defaults.headers.common["Authorization"]; // optional
     setToken(null); // update state so navbar re-renders
+    setuser(null);
     navigate("/login", { replace: true });
   };
-
-  useEffect(() => {
-    // Optional: detect token changes in other tabs
-    const handleStorageChange = () => {
-      setToken(localStorage.getItem("token"));
-    };
-    window.addEventListener("storage", handleStorageChange);
-    return () => window.removeEventListener("storage", handleStorageChange);
-  }, []);
 
   return (
     <nav>
       <div>
-        <img src="https://evanforum.com/assets/logo-D98Zk6nH.png" alt="logo" />
+        <img src="/10001.png" alt="logo" />
       </div>
       <div>
         <Link to="/">Home</Link>
         <Link to="/how-it-works">How it Works</Link>
 
-        {!token ? (
+        {!user ? (
           <button onClick={() => navigate("/login")}>Sign In</button>
         ) : (
           <>

@@ -20,6 +20,9 @@ const questionRoutes = require("./routes/questionRoute");
 //answer routes middleware file import
 const answerRoutes = require("./routes/answerRoute");
 
+//like unlike coment middleware file import
+const likeUnlikeComentRoutes = require("./routes/likeUnlikeComentRoute");
+
 
 
 
@@ -36,6 +39,9 @@ app.use("/api/questions",  questionRoutes);
 
 //answer routes middleware
 app.use("/api/",  answerRoutes);
+
+//likeunlikeComent middleware
+app.use("/api/answers", likeUnlikeComentRoutes);
 
 
 

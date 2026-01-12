@@ -1,4 +1,4 @@
-/* Main container */
+ /* Main container */
 .questionDetails {
   max-width: 900px;
   margin: 40px auto;
@@ -76,6 +76,7 @@ text-underline-offset: 6px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   gap: 30px;
  align-items: center;
+ flex-direction: column;
 }
 
 
@@ -87,6 +88,16 @@ text-underline-offset: 6px;
   gap: 10px;
   margin-bottom: 8px;
   
+}
+
+.answerContent {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+  margin-top: 20px;
+}
+.answerContent p{
+  margin-top: 20px;
 }
 .avatar {
   font-size: 80px;
@@ -153,6 +164,97 @@ text-underline-offset: 6px;
 .notFoundText {
   color: #666;
   font-size: 16px;
+}
+
+
+
+
+
+
+.reactionBar button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+
+.reactionBar {
+  display: flex;
+  gap: 18px;
+  margin-top: 6px;
+  align-items: center;
+}
+
+.reactionBar button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  color: #555;
+  font-size: 14px;
+  padding: 4px 6px;
+  border-radius: 6px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.reactionBar button:hover {
+  background: #eef1ff;
+  color: #516cf0;
+}
+
+.reactionBar svg {
+  font-size: 18px;
+}
+
+
+
+
+.commentSection {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid #eee;
+}
+
+.commentSection p {
+  margin: 6px 0;
+  font-size: 14px;
+  color: #333;
+}
+
+.commentSection textarea {
+  width: 100%;
+  min-height: 5px;
+  margin-top: 8px;
+  padding: 5px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.commentSection textarea:focus {
+  outline: none;
+  border-color: #516cf0;
+}
+
+.commentSection button {
+  margin-top: 6px;
+  align-self: flex-end;
+  background: #516cf0;
+  color: #fff;
+  border: none;
+  padding: 6px 14px;
+  font-size: 13px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.commentSection button:hover {
+  background: #3f54c0;
 }
 
 
@@ -242,5 +344,5 @@ text-underline-offset: 6px;
   .answerForm button {
     width: 100%;
   }
-}
-
+} 
+  

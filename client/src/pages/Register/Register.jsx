@@ -1,11 +1,13 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState,useContext } from "react";
 import axios from "../../axiosconfig";
 import { useNavigate, Link } from "react-router-dom";
 import style from "./register.module.css";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { AppState } from "../../App";
 
 function Register() {
   const navigate = useNavigate();
+    const { setuser, setToken } = useContext(AppState);
 
   //to give alert for missing info on input
   const [errormsg, setErrormsg] = useState("");
@@ -47,12 +49,20 @@ function Register() {
       !emailValue ||
       !passwordValue
     ) {
-      setErrormsg("Please fill out all fields!");
+      setErrormsg("❌ Please fill out all fields!");
       setSuccessMsg("");
       return;
     }
+
+    // password length check
+    if (passwordValue.length < 8) {
+      setErrormsg("❌ Password must be at least 8 characters long");
+      setSuccessMsg("");
+      return;
+    }
+
     try {
-      await axios.post("/users/register", {
+      const res = await axios.post("/users/register", {
         username: usernameValue,
         firstname: firstnameValue,
         lastname: lastnameValue,
@@ -60,12 +70,20 @@ function Register() {
         password: passwordValue,
       });
 
-      setSuccessMsg("Registered successfully please login!");
+      // Save token & user in localStorage
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+
+      // Update global state
+      setuser(res.data.user);
+      setToken(res.data.token);
+
+      setSuccessMsg("✅ Registered successfully!");
       setErrorMsg("");
 
       setTimeout(() => {
-        navigate("/login");
-      }, 2000);
+        navigate("/");
+      }, 1000);
     } catch (error) {
       const msg = error?.response?.data?.msg || "Something went wrong";
       setErrorMsg(msg);
@@ -97,10 +115,11 @@ function Register() {
           </div>
           {/* left side */}
           <form action="" onSubmit={handleSubmit} className={style.form_group}>
-
             {/* alert message on form */}
             {errormsg && <div className={style.Error_msg}>{errormsg}</div>}
-            {successMsg && (<div className={style.success_msg}>{successMsg}</div>)}
+            {successMsg && (
+              <div className={style.success_msg}>{successMsg}</div>
+            )}
 
             <input ref={usernameDom} type="text" placeholder="username" />
             <div>

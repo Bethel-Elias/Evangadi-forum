@@ -1,11 +1,13 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useContext } from "react";
 import axios from "../../axiosconfig";
 import { useNavigate, Link } from "react-router-dom";
 import style from "./login.module.css";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { AppState } from "../../App";
 
 function Login() {
   const navigate = useNavigate();
+  const { setuser, setToken } = useContext(AppState);
 
   //to give alert for missing info on input
   const [errorMsg, setErrorMsg] = useState("");
@@ -13,8 +15,6 @@ function Login() {
 
   const emailDom = useRef();
   const passwordDom = useRef();
-
-  
 
   //hide and show passwordicon on input tag
   const [showPassword, setShowPassword] = useState(false);
@@ -46,16 +46,13 @@ function Login() {
 
       //token
       localStorage.setItem("token", data.token);
-      // trigger Navbar to update
-      window.dispatchEvent(new Event("storage"));
+      setToken(data.token); // triggers App re-render
+      setuser(data.user); //  navbar updates instantly
 
       setSuccessMsg("Login successful!");
       setErrorMsg("");
 
-      setTimeout(() => {
-        navigate("/");
-      }, 2000);
-      // console.log(data);
+      navigate("/");
     } catch (error) {
       const msg =
         error?.response?.data?.msg || "Something went wrong, please try again.";
@@ -77,10 +74,11 @@ function Login() {
           </p>
 
           <form action="" onSubmit={handleSubmit} className={style.form_group}>
-
             {/* alert message on form */}
             {errorMsg && <div className={style.error_msg}>{errorMsg}</div>}
-            {successMsg && (<div className={style.success_msg}>{successMsg}</div>)}
+            {successMsg && (
+              <div className={style.success_msg}>{successMsg}</div>
+            )}
 
             <input
               ref={emailDom}

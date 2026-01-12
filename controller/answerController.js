@@ -1,7 +1,6 @@
 const { StatusCodes } = require("http-status-codes");
 const dbconnection = require("../db/dbconfig");
 
-
 //post/add answers
 async function postAnswer(req, res) {
   const { answer, questionid } = req.body;
@@ -25,7 +24,6 @@ async function postAnswer(req, res) {
       [questionid, userid, answer]
     );
 
-
     const [newAnswer] = await dbconnection.query(
       `SELECT 
      a.answerid,
@@ -39,12 +37,6 @@ async function postAnswer(req, res) {
     );
 
     res.status(201).json({ answer: newAnswer[0] });
-
-
-
-
-
-
 
     res.status(StatusCodes.CREATED).json({ msg: "Answer posted successfully" });
   } catch (error) {
@@ -92,4 +84,7 @@ async function getAnswers(req, res) {
   }
 }
 
-module.exports = { postAnswer, getAnswers };
+
+
+
+module.exports = { postAnswer, getAnswers};

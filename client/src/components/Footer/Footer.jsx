@@ -9,7 +9,7 @@ function Footer() {
   return (
     <div className={style.footer_container}>
       <div>
-        <img src="https://evanforum.com/assets/logo-D98Zk6nH.png" alt="" />
+        <img src="/10001.png" alt="" />
         <br />
         <span>
           <FaFacebook />
