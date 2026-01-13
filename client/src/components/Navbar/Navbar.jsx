@@ -10,7 +10,7 @@ function Navbar() {
   const { user, setuser, setToken } = useContext(AppState);
 
   const logout = () => {
-    localStorage.removeItem("token"); // ✅ remove token
+    localStorage.removeItem("token"); // remove token
     delete axios.defaults.headers.common["Authorization"]; // optional
     setToken(null); // update state so navbar re-renders
     setuser(null);

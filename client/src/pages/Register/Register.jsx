@@ -78,7 +78,7 @@ function Register() {
       setuser(res.data.user);
       setToken(res.data.token);
 
-      setSuccessMsg("✅ Registered successfully!");
+      setSuccessMsg(" Registered successfully!");
       setErrorMsg("");
 
       setTimeout(() => {
