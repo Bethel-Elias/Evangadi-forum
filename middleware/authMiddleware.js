@@ -19,7 +19,7 @@ async function authMiddleware(req,res,next){
           process.env.DB_JWT_SECRET
         );
         
-         req.user = { username, userid };  
+         req.user = {userid,username};  
         next()
     } catch (error) {
         return res.status(StatusCodes.UNAUTHORIZED).json({ msg: "Authentication invalid" });

@@ -9,7 +9,7 @@ const dbconnection = require("../db/dbconfig");
 async function reactAnswer(req, res) {
   const { type } = req.body; //like or dislike
   const answerId = req.params.id;
-  const userId = req.user.id;
+  const userId = req.user.userid;
 
   if (!["like", "dislike"].includes(type)) {
     return res
@@ -77,18 +77,18 @@ async function getReactions(req, res) {
  async function addComment(req, res) {
 
   try{
-  const { comment } = req.body;
-  const answerId = req.params.id;
-  const userId = req.user.id;
+  const {  comment } = req.body;
+  const answerid = req.params.id;
+  const userid = req.user.userid;
 
 
-  if (!comment || comment.trim() === "") {
+  if (!comment) {
       return res.status(StatusCodes.BAD_REQUEST).json({ msg: "Comment cannot be empty" });
     }
 
   await dbconnection.query(
     "INSERT INTO answer_comments (answerid, userid, comment) VALUES (?,?,?)",
-    [answerId, userId, comment]
+    [answerid, userid, comment]
   );
 
   res.json({msg: "Comment added successfully" });
@@ -110,7 +110,7 @@ async function getReactions(req, res) {
   const [comments] = await dbconnection.query(
     `SELECT ac.commentid, ac.comment, ac.created_at,u.username
      FROM answer_comments ac
-     JOIN users u ON ac.userid=u.id
+     JOIN users_Table u ON ac.userid = u.userid
      WHERE ac.answerid=?
      ORDER BY ac.created_at ASC`,
     [answerId]
