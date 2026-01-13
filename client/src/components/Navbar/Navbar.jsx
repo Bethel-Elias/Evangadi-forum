@@ -23,7 +23,7 @@ function Navbar() {
         <img src="/10001.png" alt="logo" />
       </div>
       <div>
-        <Link to="/">Home</Link>
+        <Link to={user ? "/" : "/login"}>Home</Link>
         <Link to="/how-it-works">How it Works</Link>
 
         {!user ? (
