@@ -1,13 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState,useRef } from "react";
 import { AppState } from "../../App";
 import { Link } from "react-router-dom";
 import axios from "../../axiosconfig";
 import { RxAvatar } from "react-icons/rx";
 import style from './home.module.css'
 import { MdKeyboardArrowRight } from "react-icons/md";
+import ScrollButton from "../../components/ScrollButton/ScrollButton";
 
 function Home() {
   const { user } = useContext(AppState);
+   const listRef = useRef(null);
 
   const [questions, setQuestions] = useState([]);
 
@@ -32,9 +34,17 @@ function Home() {
         </button>
         <h3>Hello: {user?.username}</h3>
       </div>
-      
+
       <hr />
-      <div className={style.question_list}>
+      <div
+        className={style.question_list}
+        ref={listRef}
+        style={{
+          maxHeight: "600px", // or any height you want
+          overflowY: "auto", // makes it scrollable
+          position: "relative", // ensure ScrollButton is positioned correctly
+        }}
+      >
         {Array.isArray(questions) &&
           questions.map((q) => (
             <Link
@@ -58,6 +68,7 @@ function Home() {
             </Link>
           ))}
       </div>
+      <ScrollButton scrollContainer={listRef} step={200} />
     </div>
   );
 }

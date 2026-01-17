@@ -81,7 +81,7 @@ async function singleQuestion(req, res) {
        FROM answers_table a
        JOIN users_Table u ON a.userid = u.userid
        WHERE a.questionid = ?
-       ORDER BY a.created_at DESC`,
+       ORDER BY a.created_at ASC`,
       [id]
     );
 

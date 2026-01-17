@@ -13,6 +13,7 @@ import QuestionDetails from "./pages/QuestionDetails/QuestionDetails";
 import HowItWorks from "./pages/HowItWorks/HowItWorks";
 import Footer from "./components/Footer/Footer";
 import ProtectedRoute from "./components/ProtectedRoute.jsx/ProtectedRoute";
+import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 
 export const AppState = createContext();
 
@@ -40,12 +41,15 @@ function App() {
       navigate("/login");
     }
   }
+
   useEffect(() => {
+    if (!token) return;
     checkUser();
   }, [token]);
 
   return (
     <AppState.Provider value={{ user, token, setuser, setToken }}>
+      <ScrollToTop />
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />

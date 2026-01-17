@@ -36,9 +36,10 @@ async function postAnswer(req, res) {
       [result.insertId]
     );
 
-    res.status(201).json({ answer: newAnswer[0] });
-
-    res.status(StatusCodes.CREATED).json({ msg: "Answer posted successfully" });
+    return res.status(StatusCodes.CREATED).json({
+      msg: "Answer posted successfully",
+      answer: newAnswer[0],
+    });
   } catch (error) {
     res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
