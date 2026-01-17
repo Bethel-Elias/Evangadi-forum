@@ -7,7 +7,7 @@ import { AppState } from "../../App";
 function Navbar() {
   const navigate = useNavigate();
 
-  const { token,user, setuser, setToken } = useContext(AppState);
+  const { token, user, setuser, setToken } = useContext(AppState);
 
   const logout = () => {
     localStorage.removeItem("token"); // remove token
