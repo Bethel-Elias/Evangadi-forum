@@ -1,7 +1,8 @@
 
 const express = require("express");
 const cors = require("cors");
-const port = 5500;
+// const port = 5500;
+const PORT = process.env.PORT || 5500;
 
 const app = express();
 app.use(cors());
@@ -44,14 +45,18 @@ app.use("/api",  answerRoutes);
 app.use("/api/answers", likeUnlikeComentRoutes);
 
 
+app.get("/test", (req, res) => {
+  res.send("backend Server is running");
+});
 
 async function start() {
   try {
-    const result = await dbconnection.execute("select 'test' ");
-    // console.log(result)
-    await app.listen(port);
-    console.log("database connection established");
-    console.log(`server is running at ${port}`);
+    const result = await dbconnection.execute("select 1 ");
+    console.log("database connection established", result);
+    app.listen(PORT, () => {
+      console.log(`server is running on port ${PORT}`);
+    })
+    
   } catch (error) {
     console.log(error.message);
   }

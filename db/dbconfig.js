@@ -6,10 +6,10 @@ const mysql2 = require("mysql2");
 const dbconnection = mysql2.createPool({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
-  host: "localhost",
+  host: process.env.DB_HOST,
   database: process.env.DB_DATABASE,
   connectionLimit: 10,
-  socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock",
+  // socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock",
 });
 
 //to check mysql connection to the server
