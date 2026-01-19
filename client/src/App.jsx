@@ -1,4 +1,4 @@
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { useEffect, useState, createContext } from "react";
 import axios from "./axiosconfig";
 
@@ -24,7 +24,7 @@ function App() {
   // checking user for all render
   const [token, setToken] = useState(localStorage.getItem("token"));
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   async function checkUser() {
     try {
@@ -38,7 +38,7 @@ function App() {
       localStorage.removeItem("token");
       setToken(null);
       setuser(null);
-      navigate("/login");
+      // navigate("/login");
     }
   }
 
@@ -52,7 +52,14 @@ function App() {
       <ScrollToTop />
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route
@@ -68,7 +75,7 @@ function App() {
           element={
             <ProtectedRoute>
               <QuestionDetails />
-            </ProtectedRoute>
+            // </ProtectedRoute>
           }
         />
         <Route path="/how-it-works" element={<HowItWorks />} />
