@@ -3,8 +3,7 @@ import axios from "axios";
 
 const instance = axios.create({
   // baseURL: "http://localhost:5500/api",
-  baseURL: "https://forum.be.bethelelias2024.com/api",
-  
+  baseURL: "https://evangadi.be.bethelelias2024.com/api",
 });
 
 

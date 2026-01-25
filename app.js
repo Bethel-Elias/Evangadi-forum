@@ -44,7 +44,7 @@ app.use("/api",  answerRoutes);
 //likeunlikeComent middleware
 app.use("/api/answers", likeUnlikeComentRoutes);
 
-
+//to check server running or not on yegara hosting
 app.get("/test", (req, res) => {
   res.send("backend Server is running");
 });
